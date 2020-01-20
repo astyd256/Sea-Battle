@@ -2,12 +2,6 @@ import sys
 
 from PySide2 import QtWidgets
 
-LARGE = 1
-BIG = 2
-MEDIUM = 3
-SMALL = 4
-TURNS = 0
-
 
 class Game (QtWidgets.QWidget):
     def __init__(self):
@@ -17,7 +11,8 @@ class Game (QtWidgets.QWidget):
         self.setWindowTitle("Морской Бой v0.0.4 pre alpha")
         self.setFixedSize(800, 600)
 
-        # Creating battle grid
+        # Initializing some parameters
+        self.player_ships = [4, 3, 2, 1]
         self.player_grid = {}
         self.enemy_grid = {}
         self.grid_create()
@@ -50,52 +45,66 @@ class Game (QtWidgets.QWidget):
                 self.enemy_grid[(i, j)].clicked.connect(self.enemy_click)
 
     def player_click(self):
+        # Need to add a layout probably to scale buttons but unknown
+        # how to get a name from buttons after that change
+
         # Taking back name of a button
+        # and translate it by fixed formula
         i = (int(self.sender().y()) - 40)/30
         j = (int(self.sender().x()) - 60)/30
-        # TODO: fix player grid
+
+        if self.player_grid[abs(i - 1), abs(j - 1)].styleSheet() == "background-color: red":
+            return
+        if i < 9 and j < 9 and self.player_grid[(i + 1, j + 1)].styleSheet() == "background-color: red":
+            return
+        if i < 9 and self.player_grid[(i + 1, abs(j - 1))].styleSheet() == "background-color: red":
+            return
+        if j < 9 and self.player_grid[(abs(i - 1), j + 1)].styleSheet() == "background-color: red":
+            return
+
+        k = i - 1
+        counter = 0
+        while k > -1 and self.player_grid[(k, j)].styleSheet() == "background-color: red":
+            counter += 1
+            k -= 1
+        k = j - 1
+        while k > -1 and self.player_grid[(i, k)].styleSheet() == "background-color: red":
+            counter += 1
+            k -= 1
+        k = i + 1
+        while k < 10 and self.player_grid[(k, j)].styleSheet() == "background-color: red":
+            counter += 1
+            k += 1
+        k = j + 1
+        while k < 10 and self.player_grid[(i, k)].styleSheet() == "background-color: red":
+            counter += 1
+            k += 1
+
+        # Checks if there an active square or not
+        # If not, active square and change counter
         if self.player_grid[(i, j)].styleSheet() == "background-color: cyan":
-            self.player_grid[(i, j)].setStyleSheet("background-color: red")
-
-            self.player_grid[(abs(i - 1), abs(j - 1))].setDisabled(True)
-
-            if abs(i + 1) < 10:
-                self.player_grid[(i + 1, abs(j - 1))].setDisabled(True)
-            if abs(j + 1) < 10:
-                self.player_grid[(abs(i - 1), j + 1)].setDisabled(True)
-            if abs(i + 1) < 10 and abs(j + 1) < 10:
-                self.player_grid[(i + 1, j + 1)].setDisabled(True)
-
-            """Debug part"""
-            self.player_grid[(abs(i - 1), abs(j - 1))].setStyleSheet("background-color: gray")
-
-            if abs(i+1) < 10:
-                self.player_grid[(i + 1, abs(j - 1))].setStyleSheet("background-color: gray")
-            if abs(j+1) < 10:
-                self.player_grid[(abs(i - 1), j + 1)].setStyleSheet("background-color: gray")
-            if abs(i+1) < 10 and abs(j+1) < 10:
-                self.player_grid[(i + 1, j + 1)].setStyleSheet("background-color: gray")
+            if self.player_ships[counter] > 0:
+                if counter > 0:
+                    self.player_ships[counter - 1] += 1
+                    self.player_ships[counter] -= 1
+                elif counter == 0:
+                    self.player_ships[counter] -= 1
+                self.player_grid[(i, j)].setStyleSheet("background-color: red")
+        # If is disable this square and change counter
+        # TODO: Add a log to display exception error
+        # TODO: Fix bug when you try divide 4, 3 or 2-squared ship
+        #  in half
         else:
-            self.player_grid[(i, j)].setStyleSheet("background-color: cyan")
-
-            self.player_grid[(abs(i - 1), abs(j - 1))].setDisabled(False)
-
-            if abs(i + 1) < 10:
-                self.player_grid[(i + 1, abs(j - 1))].setDisabled(False)
-            if abs(j + 1) < 10:
-                self.player_grid[(abs(i - 1), j + 1)].setDisabled(False)
-            if abs(i + 1) < 10 and abs(j + 1) < 10:
-                self.player_grid[(i + 1, j + 1)].setDisabled(False)
-
-            """Debug part"""
-            self.player_grid[(abs(i - 1), abs(j - 1))].setStyleSheet("background-color: cyan")
-
-            if abs(i + 1) < 10:
-                self.player_grid[(i + 1, abs(j - 1))].setStyleSheet("background-color: cyan")
-            if abs(j + 1) < 10:
-                self.player_grid[(abs(i - 1), j + 1)].setStyleSheet("background-color: cyan")
-            if abs(i + 1) < 10 and abs(j + 1) < 10:
-                self.player_grid[(i + 1, j + 1)].setStyleSheet("background-color: cyan")
+            if counter > 0:
+                if self.player_ships[counter - 1] == 0:
+                    return
+                elif self.player_ships[counter - 1] > 0:
+                    self.player_ships[counter - 1] -= 1
+                    self.player_ships[counter] += 1
+                    self.player_grid[(i, j)].setStyleSheet("background-color: cyan")
+            elif counter == 0:
+                self.player_ships[counter] += 1
+                self.player_grid[(i, j)].setStyleSheet("background-color: cyan")
 
     def enemy_click(self):
         btn = self.sender()
@@ -104,11 +113,6 @@ class Game (QtWidgets.QWidget):
         btn.setDisabled(True)
 
     def clear(self):
-        global LARGE, BIG, MEDIUM, SMALL
-        LARGE = 1
-        BIG = 2
-        MEDIUM = 3
-        SMALL = 4
         for i in range(10):
             for j in range(10):
                 self.player_grid[(i, j)].setStyleSheet("background-color: cyan")
@@ -116,14 +120,12 @@ class Game (QtWidgets.QWidget):
 
     def start(self):
         self.generate_enemy()
-        self.game_loop()
         self.clear_button.setDisabled(True)
         self.start_button.setDisabled(True)
         for i in range(10):
             for j in range(10):
                 self.player_grid[(i, j)].setDisabled(True)
-        global TURNS
-        TURNS = 1
+        self.game_loop()
 
     def generate_enemy(self):
         # TODO: Create enemy generation
@@ -131,8 +133,7 @@ class Game (QtWidgets.QWidget):
 
     def game_loop(self):
         # TODO: Create game loop
-        while LARGE + BIG + MEDIUM + SMALL > 0:
-            pass
+        pass
 
 
 # Create the Qt Application
