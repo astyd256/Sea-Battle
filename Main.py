@@ -150,14 +150,16 @@ class Game (QtWidgets.QWidget):
         check = True
         while enemy_ships > 0:
             axis = random.choice('xy')
-            y = random.randrange(0, 10 - k*(axis == 'y'))
-            x = random.randrange(0, 10 - k*(axis == 'x'))
-
-            # square checking
-            for s in range(k):
-                if self.enemy_ships[y + s * (axis == 'y')][x + s * (axis == 'x')] != 0:
-                    check = False
-                    break
+            y, x = random.choice([(j, i) for i in range(10) for j in range(10) if self.enemy_ships[j][i] == 0 ])
+            print(x, y)
+            # square checking temporary solution
+            if -1 < (x * (axis == 'x') + y * (axis == 'y') + k) < 10:
+                for s in range(k):
+                    if self.enemy_ships[y + s * (axis == 'y')][x + s * (axis == 'x')] != 0:
+                        check = False
+                        break
+            else:
+                check = False
 
             if check:
                 '''
@@ -183,9 +185,9 @@ class Game (QtWidgets.QWidget):
                 if enemy_ships in (9, 7, 4):
                     k -= 1
 
-        '''Debug'''
-        for line in self.enemy_ships:
-            print(line)
+            '''Debug'''
+            for line in self.enemy_ships:
+                print(line)
 
     def game_loop(self):
         # TODO: Create game loop
