@@ -3,12 +3,13 @@ import sys
 from PySide2 import QtWidgets
 import random
 
+
 class Game (QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
         # Window preferences
-        self.setWindowTitle("Морской Бой v0.1.0 pre alpha")
+        self.setWindowTitle("Морской Бой v0.1.1 pre alpha")
         self.setFixedSize(800, 600)
 
         # Initializing some parameters
@@ -16,6 +17,7 @@ class Game (QtWidgets.QWidget):
         self.enemy_ships = [[0 for i in range(10)] for j in range(10)]
         self.player_grid = {}
         self.enemy_grid = {}
+        self.player_turn = False
 
         for y in range(10):
             for x in range(10):
@@ -129,7 +131,6 @@ class Game (QtWidgets.QWidget):
         """
         Start button
         """
-        # TODO: fix start button
         self.generate_enemy_map()   
         self.clear_button.setDisabled(True)
         self.start_button.setDisabled(True)
@@ -137,60 +138,56 @@ class Game (QtWidgets.QWidget):
             for j in range(10):
                 self.player_grid[(i, j)].setDisabled(True)
         self.game_loop()
+        self.player_turn = True
 
     def generate_enemy_map(self):
         """
         Generates random enemy ships
         and write them down in self.enemy_ships
         """
-        # TODO: Create enemy generation
-        # TODO: Create list of available squares
         enemy_ships = 10
-        k = 4
-        check = True
+        k = 3
         while enemy_ships > 0:
-            axis = random.choice('xy')
-            y, x = random.choice([(j, i) for i in range(10) for j in range(10) if self.enemy_ships[j][i] == 0 ])
-            print(x, y)
-            # square checking temporary solution
-            if -1 < (x * (axis == 'x') + y * (axis == 'y') + k) < 10:
-                for s in range(k):
-                    if self.enemy_ships[y + s * (axis == 'y')][x + s * (axis == 'x')] != 0:
-                        check = False
-                        break
-            else:
-                check = False
+            available_ships = []
+            # OX
+            for j in range(10):
+                for i in range(10 - k):
+                    iterator = 0
+                    while iterator <= k and self.enemy_ships[j][i + iterator] == 0:
+                        if iterator == k:
+                            available_ships.append([(temp, j) for temp in range (i, i + k + 1)])
+                        iterator += 1
+            # OY
+            for i in range(10):
+                for j in range(10 - k):
+                    iterator = 0
+                    while iterator <= k and self.enemy_ships[j + iterator][i] == 0:
+                        if iterator == k:
+                            available_ships.append([(i, temp) for temp in range(j, j + k + 1)])
+                        iterator += 1
 
-            if check:
-                '''
-                s - step
-                k - number of available squares
-                
-                Because I know in what direction ship is building I can block the previous square.
-                Even if it's out of range abs saving the day.
-                Moreover it will work for any size of ship because it will either rewritten to 1
-                in enemy map or be on next square after the ship.  
-                '''
-                for s in range(k):
-                    self.enemy_ships[y + s*(axis == 'y')][x + s*(axis == 'x')] = 1
-                    # TODO: make algorithm that checks neighbor squares
-                    for j in (y+s*(axis == 'y') - 1, y+s*(axis == 'y'), y+s*(axis == 'y')+1):
-                        if -1 < j < 10:
-                            for i in (x+s*(axis == 'x') - 1, x+s*(axis == 'x'), x+s*(axis == 'x')+1):
-                                if -1 < i < 10:
-                                    if self.enemy_ships[j][i] == 0:
-                                        self.enemy_ships[j][i] = 2
+            # Take one random list with coordinates
+            # and iterate through it
+            for coordinate in random.choice(available_ships):
+                x, y = coordinate
+                self.enemy_ships[y][x] = 1
+                for j in (y - 1, y, y + 1):
+                    if -1 < j < 10:
+                        for i in (x - 1, x, x + 1):
+                            if -1 < i < 10:
+                                if self.enemy_ships[j][i] == 0:
+                                    self.enemy_ships[j][i] = 2
 
-                enemy_ships -= 1
-                if enemy_ships in (9, 7, 4):
-                    k -= 1
-
-            '''Debug'''
-            for line in self.enemy_ships:
-                print(line)
+            enemy_ships -= 1
+            if enemy_ships in (9, 7, 4):
+                k -= 1
 
     def game_loop(self):
         # TODO: Create game loop
+        pass
+
+    def enemy_turn(self):
+        # TODO: Create enemy turn handler
         pass
 
 
