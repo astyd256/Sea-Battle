@@ -1,0 +1,18 @@
+QPushButton[player='empty']{
+	background-color: aqua;
+	padding: 10%
+}
+QPushButton[player='reserved']{
+	background-color: royalblue;
+	padding: 10%
+}
+QPushButton[enemy='empty']{
+	background-color: aqua;
+	padding: 10%
+}
+QWidget#player_grid{
+	margin: 40% 20% 40% 10%
+}
+QWidget#enemy_grid{
+	margin: 40% 10% 40% 20%
+}

@@ -63,51 +63,80 @@ class Game (QtWidgets.QWidget):
             return
         if x < 9 and self.player_grid[(abs(y - 1), x + 1)].styleSheet() == "background-color: red":
             return
+        self.player_ships = [[0]*10]*10
+        self.enemy_ships = [[0]*10]*10
+        self.ships_stack = [4, 3, 2, 1]
+        self.player_turn = False
+        self.x = None
+        self.y = None
 
-        # Counter of OTHER red squares
+    def ship_placer(self, y, x):
+        # TODO: synchronise UI and Game
+        # TODO: Add a log to display exception error
+        """
+        Handler of creating player’s grid
+
+        :return 0: square is empty
+        :return 1: square is reserved
+        """
+
+        if self.player_ships[y][x] == 1:
+            return False
+
+        # Counter of adjacent red squares
+        # k - temp parameter
         k = y - 1
         counter = 0
-        while k > -1 and self.player_grid[(k, x)].styleSheet() == "background-color: red":
+        while k > -1 and self.player_ships[k][x] == 1:
             counter += 1
             k -= 1
         k = x - 1
-        while k > -1 and self.player_grid[(y, k)].styleSheet() == "background-color: red":
+        while k > -1 and self.player_ships[y][k] == 1:
             counter += 1
             k -= 1
         k = y + 1
-        while k < 10 and self.player_grid[(k, x)].styleSheet() == "background-color: red":
+        while k < 10 and self.player_ships[k][x] == 1:
             counter += 1
             k += 1
         k = x + 1
-        while k < 10 and self.player_grid[(y, k)].styleSheet() == "background-color: red":
+        while k < 10 and self.player_ships[y][k] == 1:
             counter += 1
             k += 1
 
-        # Checks if there an active square or not
-        # If not, active square and change counter
-        if self.player_grid[(y, x)].styleSheet() == "background-color: cyan":
-            if self.player_ships[counter] > 0:
+        '''
+        Checks if there is an active squire or not
+        If it's not, place the square and change counter
+        If it's, disable this square and change counter
+        '''
+        adjacent = 0
+        if self.player_ships[y][x] == 0:
+            if self.ships_stack[counter] > 0:
                 if counter > 0:
-                    self.player_ships[counter - 1] += 1
-                    self.player_ships[counter] -= 1
+                    self.ships_stack[counter - 1] += 1
+                    self.ships_stack[counter] -= 1
                 elif counter == 0:
-                    self.player_ships[counter] -= 1
-                self.player_grid[(y, x)].setStyleSheet("background-color: red")
-        # If is disable this square and change counter
-        # TODO: Add a log to display exception error
-        # TODO: Fix bug when you try divide 4, 3 or 2-squared ship
-        #  in half
+                    self.ships_stack[counter] -= 1
+                self.player_ships[y][x] = 1
+                return 1
         else:
-            if counter > 0:
-                if self.player_ships[counter - 1] == 0:
-                    return
-                elif self.player_ships[counter - 1] > 0:
-                    self.player_ships[counter - 1] -= 1
-                    self.player_ships[counter] += 1
-                    self.player_grid[(y, x)].setStyleSheet("background-color: cyan")
-            elif counter == 0:
-                self.player_ships[counter] += 1
-                self.player_grid[(y, x)].setStyleSheet("background-color: cyan")
+            for j in [y + 1, y - 1]:
+                for i in [x + 1, x - 1]:
+                    if -1 < y < 10 and -1 < x < 10 and self.player_ships[j][i] == 1:
+                        adjacent += 1
+            if adjacent > 1:
+                return 0
+            if counter == 0:
+                self.ships_stack[counter] += 1
+                self.player_ships[y][x] = 0
+                return 0
+            elif counter > 0:
+                if self.ships_stack[counter - 1] == 0:
+                    return 0
+                elif self.ships_stack[counter - 1] > 0:
+                    self.ships_stack[counter - 1] -= 1
+                    self.ships_stack[counter] += 1
+                    self.player_ships[y][x] = 0
+                    return 0
 
     def enemy_click(self):
         """
@@ -146,24 +175,24 @@ class Game (QtWidgets.QWidget):
         and write them down in self.enemy_ships
         """
         enemy_ships = 10
-        k = 3
+        square_shift = 3
         while enemy_ships > 0:
             available_ships = []
             # OX
             for j in range(10):
-                for i in range(10 - k):
+                for i in range(10 - square_shift):
                     iterator = 0
-                    while iterator <= k and self.enemy_ships[j][i + iterator] == 0:
-                        if iterator == k:
-                            available_ships.append([(temp, j) for temp in range (i, i + k + 1)])
+                    while iterator <= square_shift and self.enemy_ships[j][i + iterator] == 0:
+                        if iterator == square_shift:
+                            available_ships.append([(temp, j) for temp in range(i, i + square_shift + 1)])
                         iterator += 1
             # OY
             for i in range(10):
-                for j in range(10 - k):
+                for j in range(10 - square_shift):
                     iterator = 0
-                    while iterator <= k and self.enemy_ships[j + iterator][i] == 0:
-                        if iterator == k:
-                            available_ships.append([(i, temp) for temp in range(j, j + k + 1)])
+                    while iterator <= square_shift and self.enemy_ships[j + iterator][i] == 0:
+                        if iterator == square_shift:
+                            available_ships.append([(i, temp) for temp in range(j, j + square_shift + 1)])
                         iterator += 1
 
             # Take one random list with coordinates
@@ -180,11 +209,100 @@ class Game (QtWidgets.QWidget):
 
             enemy_ships -= 1
             if enemy_ships in (9, 7, 4):
-                k -= 1
+                square_shift -= 1
 
     def game_loop(self):
+<<<<<<< Updated upstream
         # TODO: Create game loop
         pass
+        # TODO: Create game loop?
+        pass
+
+    def enemy_turn(self):
+        # TODO: Create enemy turn handler?
+        pass
+
+
+class Menu (QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.player_button = {}
+        self.enemy_button = {}
+
+        self.game = None
+
+        self.main_frame = QtWidgets.QFrame()
+        self.menu_frame = QtWidgets.QFrame()
+        self.game_frame = QtWidgets.QFrame()
+        self.player_frame = QtWidgets.QFrame()
+        self.enemy_frame = QtWidgets.QFrame()
+        self.info_frame = QtWidgets.QFrame()
+
+        self.main_layout = QtWidgets.QVBoxLayout(self.main_frame)
+        self.menu_layout = QtWidgets.QVBoxLayout(self.menu_frame)
+        self.game_layout = QtWidgets.QHBoxLayout(self.game_frame)
+        self.player_layout = QtWidgets.QGridLayout(self.player_frame)
+        self.enemy_layout = QtWidgets.QGridLayout(self.enemy_frame)
+        self.info_layout = QtWidgets.QGridLayout(self.info_frame)
+
+        self.start_button = QtWidgets.QPushButton('Start Game')
+        self.start_button.clicked.connect(self.start)
+        self.fullscreen_button = QtWidgets.QPushButton('Enable Fullscreen')
+        self.fullscreen_button.clicked.connect(self.fullscreen)
+
+        for y in range(10):
+            for x in range(10):
+
+                self.player_button[(y, x)] = QtWidgets.QPushButton(f'{y}{x}')
+                self.player_button[(y, x)].setProperty('player', 'empty')
+                self.player_button[(y, x)].clicked.connect(lambda: self.player_click(y, x))
+                self.player_layout.addWidget(self.player_button[(y, x)], y, x)
+
+                self.enemy_button[(y, x)] = QtWidgets.QPushButton(f'{y}{x}')
+                self.enemy_button[(y, x)].setProperty('enemy', 'empty')
+                self.enemy_button[(y, x)].clicked.connect(lambda: self.enemy_click(y, x))
+                self.enemy_layout.addWidget(self.enemy_button[(y, x)], y, x)
+
+        self.init_ui()
+
+    def init_ui(self):
+        # Css style implementation
+        with open('style.css') as f:
+            self.setStyleSheet(f.read())
+
+        # Window preferences
+        self.setWindowTitle("Морской Бой v0.2.0a")
+
+        self.player_frame.setObjectName('player_grid')
+        self.enemy_frame.setObjectName('enemy_grid')
+        self.game_frame.setObjectName('Widget')
+
+        self.setCentralWidget(self.main_frame)
+        self.main_layout.addWidget(self.menu_frame)
+        self.main_layout.addWidget(self.game_frame)
+
+        self.menu_layout.addWidget(self.start_button)
+        self.menu_layout.addWidget(self.fullscreen_button)
+
+        self.game_layout.addWidget(self.player_frame, 1)
+        self.game_layout.addWidget(self.info_frame, 3)
+        self.game_layout.addWidget(self.enemy_frame, 1)
+        self.game_frame.setVisible(False)
+
+    def fullscreen(self):
+        if self.isFullScreen():
+            self.showNormal()
+        else:
+            self.showFullScreen()
+
+    def player_click(self, y, x):
+        if self.game.ship_placer(y, x) == 1:
+            self.player_button[(y, x)].setProperty('player', 'reserved')
+        else:
+            self.player_button[(y, x)].setProperty('player', 'empty')
+        with open('style.css') as f:
+            self.setStyleSheet(f.read())
 
     def enemy_turn(self):
         # TODO: Create enemy turn handler
