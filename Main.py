@@ -212,26 +212,29 @@ class Game (QtWidgets.QWidget):
                 square_shift -= 1
 
     def game_loop(self):
-<<<<<<< Updated upstream
         # TODO: Create game loop
         pass
-        # TODO: Create game loop?
-        pass
+
 
     def enemy_turn(self):
-        # TODO: Create enemy turn handler?
+        # TODO: Create enemy turn handler
         pass
 
 
-class Menu (QtWidgets.QMainWindow):
+class MainWindow (QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
 
+        # Window preferences
+        self.setWindowTitle("Морской Бой v0.2.0a")
+
+        self.menu_init()
         self.player_button = {}
         self.enemy_button = {}
 
         self.game = None
 
+"""
         self.main_frame = QtWidgets.QFrame()
         self.menu_frame = QtWidgets.QFrame()
         self.game_frame = QtWidgets.QFrame()
@@ -255,28 +258,17 @@ class Menu (QtWidgets.QMainWindow):
             for x in range(10):
 
                 self.player_button[(y, x)] = QtWidgets.QPushButton(f'{y}{x}')
-                self.player_button[(y, x)].setProperty('player', 'empty')
                 self.player_button[(y, x)].clicked.connect(lambda: self.player_click(y, x))
                 self.player_layout.addWidget(self.player_button[(y, x)], y, x)
 
                 self.enemy_button[(y, x)] = QtWidgets.QPushButton(f'{y}{x}')
-                self.enemy_button[(y, x)].setProperty('enemy', 'empty')
                 self.enemy_button[(y, x)].clicked.connect(lambda: self.enemy_click(y, x))
                 self.enemy_layout.addWidget(self.enemy_button[(y, x)], y, x)
 
-        self.init_ui()
+        self.game_init()
+"""
 
-    def init_ui(self):
-        # Css style implementation
-        with open('style.css') as f:
-            self.setStyleSheet(f.read())
-
-        # Window preferences
-        self.setWindowTitle("Морской Бой v0.2.0a")
-
-        self.player_frame.setObjectName('player_grid')
-        self.enemy_frame.setObjectName('enemy_grid')
-        self.game_frame.setObjectName('Widget')
+    def menu_init(self):
 
         self.setCentralWidget(self.main_frame)
         self.main_layout.addWidget(self.menu_frame)
@@ -290,6 +282,10 @@ class Menu (QtWidgets.QMainWindow):
         self.game_layout.addWidget(self.enemy_frame, 1)
         self.game_frame.setVisible(False)
 
+    def game_init(self):
+
+
+
     def fullscreen(self):
         if self.isFullScreen():
             self.showNormal()
@@ -297,12 +293,7 @@ class Menu (QtWidgets.QMainWindow):
             self.showFullScreen()
 
     def player_click(self, y, x):
-        if self.game.ship_placer(y, x) == 1:
-            self.player_button[(y, x)].setProperty('player', 'reserved')
-        else:
-            self.player_button[(y, x)].setProperty('player', 'empty')
-        with open('style.css') as f:
-            self.setStyleSheet(f.read())
+        pass
 
     def enemy_turn(self):
         # TODO: Create enemy turn handler

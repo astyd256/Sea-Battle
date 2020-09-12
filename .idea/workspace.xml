@@ -21,15 +21,15 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Main.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -39,7 +39,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Program Files (x86)\python.exe" />
+      <option name="SDK_HOME" value="C:\Program Files (x86)\Python3\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -69,71 +69,57 @@
       <workItem from="1584101643373" duration="25480000" />
       <workItem from="1584255646195" duration="5291000" />
       <workItem from="1585420631438" duration="15000" />
+      <workItem from="1593429477000" duration="724000" />
+      <workItem from="1593430256512" duration="568000" />
+      <workItem from="1593856071563" duration="1698000" />
+      <workItem from="1593861564962" duration="2592000" />
+      <workItem from="1594765586426" duration="1355000" />
+      <workItem from="1596300212746" duration="1404000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="91" key="#Notifications" timestamp="1584178110828">
+    <state x="395" y="111" key="#Inspections" timestamp="1593430554334">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="361" y="91" key="#Notifications/0.0.1536.864@0.0.1536.864" timestamp="1584178110828" />
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584187946832">
+    <state x="395" y="111" key="#Inspections/0.0.1536.864@0.0.1536.864" timestamp="1593430554334" />
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593856953733">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1584187946832" />
-    <state x="548" y="187" key="FileChooserDialogImpl" timestamp="1584101281055">
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1593856953733" />
+    <state x="548" y="241" key="FileChooserDialogImpl" timestamp="1593863549385">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="548" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1584101281055" />
-    <state width="1493" height="270" key="GridCell.Tab.0.bottom" timestamp="1584261321709">
+    <state x="548" y="241" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1593863549385" />
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom" timestamp="1596307442431">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="270" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1584261321709" />
-    <state width="1493" height="270" key="GridCell.Tab.0.center" timestamp="1584261321709">
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1596307442431" />
+    <state width="1493" height="223" key="GridCell.Tab.0.center" timestamp="1596307442431">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="270" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1584261321709" />
-    <state width="1493" height="270" key="GridCell.Tab.0.left" timestamp="1584261321708">
+    <state width="1493" height="223" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1596307442431" />
+    <state width="1493" height="223" key="GridCell.Tab.0.left" timestamp="1596307442431">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="270" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1584261321708" />
-    <state width="1493" height="270" key="GridCell.Tab.0.right" timestamp="1584261321709">
+    <state width="1493" height="223" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1596307442431" />
+    <state width="1493" height="223" key="GridCell.Tab.0.right" timestamp="1596307442431">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="270" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1584261321709" />
-    <state width="1493" height="228" key="GridCell.Tab.1.bottom" timestamp="1584204800906">
+    <state width="1493" height="223" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1596307442431" />
+    <state x="277" y="77" key="SettingsEditor" timestamp="1593856628952">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="228" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1584204800906" />
-    <state width="1493" height="228" key="GridCell.Tab.1.center" timestamp="1584204800906">
+    <state x="277" y="77" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1593856628952" />
+    <state x="431" y="181" key="search.everywhere.popup" timestamp="1596300431734">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="228" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1584204800906" />
-    <state width="1493" height="228" key="GridCell.Tab.1.left" timestamp="1584204800906">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="228" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1584204800906" />
-    <state width="1493" height="228" key="GridCell.Tab.1.right" timestamp="1584204800906">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="228" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1584204800906" />
-    <state x="277" y="75" key="SettingsEditor" timestamp="1584178089239">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="277" y="75" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1584178089239" />
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1585420651000">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1585420651000" />
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1584260314375">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1584260314375" />
+    <state x="431" y="181" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1596300431734" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Sea_Battle$Main.coverage" NAME="Main Coverage Results" MODIFIED="1584260723957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Sea_Battle$Main.coverage" NAME="Main Coverage Results" MODIFIED="1596300245087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
