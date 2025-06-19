@@ -7,7 +7,6 @@ app = QApplication(sys.argv)
 window = MainWindow()
 window.show()
 app.exec()
-
     
 # class Game (QtWidgets.QWidget):
 #     def __init__(self):
