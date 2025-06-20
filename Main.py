@@ -173,47 +173,47 @@ app.exec()
 #         self.game_loop()
 #         self.player_turn = True
 
-#     def generate_enemy_map(self):
-#         """
-#         Generates random enemy ships
-#         and write them down in self.enemy_ships
-#         """
-#         enemy_ships = 10
-#         square_shift = 3
-#         while enemy_ships > 0:
-#             available_ships = []
-#             # OX
-#             for j in range(10):
-#                 for i in range(10 - square_shift):
-#                     iterator = 0
-#                     while iterator <= square_shift and self.enemy_ships[j][i + iterator] == 0:
-#                         if iterator == square_shift:
-#                             available_ships.append([(temp, j) for temp in range(i, i + square_shift + 1)])
-#                         iterator += 1
-#             # OY
-#             for i in range(10):
-#                 for j in range(10 - square_shift):
-#                     iterator = 0
-#                     while iterator <= square_shift and self.enemy_ships[j + iterator][i] == 0:
-#                         if iterator == square_shift:
-#                             available_ships.append([(i, temp) for temp in range(j, j + square_shift + 1)])
-#                         iterator += 1
+    def generate_enemy_map(self):
+        """
+        Generates random enemy ships
+        and write them down in self.enemy_ships
+        """
+        enemy_ships = 10
+        square_shift = 3
+        while enemy_ships > 0:
+            available_ships = []
+            # OX
+            for j in range(10):
+                for i in range(10 - square_shift):
+                    iterator = 0
+                    while iterator <= square_shift and self.enemy_ships[j][i + iterator] == 0:
+                        if iterator == square_shift:
+                            available_ships.append([(temp, j) for temp in range(i, i + square_shift + 1)])
+                        iterator += 1
+            # OY
+            for i in range(10):
+                for j in range(10 - square_shift):
+                    iterator = 0
+                    while iterator <= square_shift and self.enemy_ships[j + iterator][i] == 0:
+                        if iterator == square_shift:
+                            available_ships.append([(i, temp) for temp in range(j, j + square_shift + 1)])
+                        iterator += 1
 
-#             # Take one random list with coordinates
-#             # and iterate through it
-#             for coordinate in random.choice(available_ships):
-#                 x, y = coordinate
-#                 self.enemy_ships[y][x] = 1
-#                 for j in (y - 1, y, y + 1):
-#                     if -1 < j < 10:
-#                         for i in (x - 1, x, x + 1):
-#                             if -1 < i < 10:
-#                                 if self.enemy_ships[j][i] == 0:
-#                                     self.enemy_ships[j][i] = 2
+            # Take one random list with coordinates
+            # and iterate through it
+            for coordinate in random.choice(available_ships):
+                x, y = coordinate
+                self.enemy_ships[y][x] = 1
+                for j in (y - 1, y, y + 1):
+                    if -1 < j < 10:
+                        for i in (x - 1, x, x + 1):
+                            if -1 < i < 10:
+                                if self.enemy_ships[j][i] == 0:
+                                    self.enemy_ships[j][i] = 2
 
-#             enemy_ships -= 1
-#             if enemy_ships in (9, 7, 4):
-#                 square_shift -= 1
+            enemy_ships -= 1
+            if enemy_ships in (9, 7, 4):
+                square_shift -= 1
 
 #     def game_loop(self):
 #         # TODO: Create game loop

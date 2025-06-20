@@ -14,9 +14,6 @@ class Ship:
     # def __post_init__(self):
     #     self.hits = []
         
-        
-    
-    
     def is_sunk(self) -> bool:
         return len(self.hits) == self.size
     
